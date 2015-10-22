@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
   <link rel="stylesheet" href="css/app.css">
   <script src="node_modules/angular/angular.js"></script>
+  <script src="node_modules/angular-utils-pagination/dirPagination.js"></script>
   <script src="js/pokemon.js"></script>
 </head>
 <body>
@@ -20,7 +21,7 @@
 
     <div class="lead" ng-controller="PokemonsCtrl">
       <table class="table table-striped">
-        <tr ng-animate="'animate'"ng-repeat="pokemon in pokemons | filter:search">
+        <tr dir-paginate="pokemon in pokemons | filter:search | itemsPerPage: 5">
           <td>
             <img class="pokemon" src="http://pokeapi.co/media/img/{{pokemon.resource_uri|splitResource}}.png" onerror="this.src='img/pokeball.png';">
           </td>
@@ -29,6 +30,10 @@
           </td>
         </tr>
       </table>
+
+      <div class="page">
+        <dir-pagination-controls></dir-pagination-controls>
+      </div>
     </div>
   </div>
 </body>

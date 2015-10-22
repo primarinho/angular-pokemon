@@ -1,4 +1,4 @@
-var pokemonApp = angular.module('pokemonApp', [])
+var pokemonApp = angular.module('pokemonApp', ['angularUtils.directives.dirPagination'])
 .filter('splitResource', function() {
   return function(input) {
     return input

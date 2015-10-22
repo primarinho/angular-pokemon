@@ -32,3 +32,8 @@ img {
   width: auto;
   height: auto;
 }
+
+.page {
+  text-align: center;
+  font-size: 14px;
+}
