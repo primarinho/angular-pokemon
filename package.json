@@ -1,0 +1,17 @@
+{
+  "name": "angular-pokemon",
+  "version": "1.0.0",
+  "description": "Pokedex using pokeapi.co",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "author": "barrosfilipe",
+  "license": "ISC",
+  "dependencies": {
+    "angular": "^1.4.7",
+    "bootstrap": "^3.3.5",
+    "express": "^4.13.3"
+  }
+}
