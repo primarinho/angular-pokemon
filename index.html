@@ -10,14 +10,15 @@
   <link rel="stylesheet" href="css/vendor/animate.css">
   <link rel="stylesheet" href="css/app.css">
   <script src="node_modules/angular/angular.js"></script>
-  <script src="node_modules/angular-ui-bootstrap/ui-bootstrap.js"></script>
   <script src="node_modules/angular-utils-pagination/dirPagination.js"></script>
+  <script src="js/vendor/jquery-1.11.3.js"></script>
+  <script src="node_modules/bootstrap/js/modal.js"></script>
   <script src="js/pokemon.js"></script>
 </head>
 <body>
   <div class="container">
     <div class="page-header">
-      <h1>Gotta catch 'em all AngularJS! (pokeapi)</p></h1>
+      <h1><a href="index.html">Gotta catch 'em all AngularJS! (pokeapi)</a></h1>
     </div>
 
     <div class="form-group">
@@ -25,20 +26,12 @@
     </div>
 
     <div class="lead" ng-controller="PokemonsCtrl">
-      <div class="sk-circle" ng-show="loading">
-        <div class="sk-circle1 sk-child"></div>
-        <div class="sk-circle2 sk-child"></div>
-        <div class="sk-circle3 sk-child"></div>
-        <div class="sk-circle4 sk-child"></div>
-        <div class="sk-circle5 sk-child"></div>
-        <div class="sk-circle6 sk-child"></div>
-        <div class="sk-circle7 sk-child"></div>
-        <div class="sk-circle8 sk-child"></div>
-        <div class="sk-circle9 sk-child"></div>
-        <div class="sk-circle10 sk-child"></div>
-        <div class="sk-circle11 sk-child"></div>
-        <div class="sk-circle12 sk-child"></div>
+
+      <div class="loading" ng-show="loading">
+        <img ng-src="img/loading_mew.gif" class="mew">
+        <p>Loading...</p>
       </div>
+
       <table class="table table-striped">
         <tr dir-paginate="pokemon in pokemons | filter:search | orderBy:'resource_uri|splitResource' | itemsPerPage: 5">
           <td>
@@ -46,7 +39,7 @@
           </td>
           <td>
             <div class="pokemon" ng-click="viewPokemon(pokemon.resource_uri)">
-              <img ng-src="http://pokeapi.co/media/img/{{pokemon.resource_uri|splitResource}}.png" onerror="this.src='img/pokeball.png';">
+              <img ng-src="http://pokeapi.co/media/img/{{pokemon.resource_uri|splitResource}}.png" onerror="this.src='img/pokeball.png';" class="poke">
             </div>
           </td>
           <td class="capitalized">
@@ -54,6 +47,46 @@
           </td>
         </tr>
       </table>
+
+      <div id="info" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h4 class="modal-title"><strong>Pokémon:</strong> {{info.name}}</h4>
+            </div>
+            <div class="modal-body">
+              <img ng-src="http://pokeapi.co/media/img/{{pokemon_id}}.png" onerror="this.src='img/pokeball.png';" class="info_pic">
+
+              <h5 class="progress-label">Attack:</h5>
+              <div class="progress">
+                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{info.attack}}" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em; width: {{info.attack}}%">
+                  {{info.attack}}%
+                </div>
+              </div>
+
+              <h5 class="progress-label">Defense:</h5>
+              <div class="progress">
+                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{info.defense}}" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em; width: {{info.defense}}%">
+                  {{info.defense}}
+                </div>
+              </div>
+
+              <div class="types">
+                <strong>Types:</strong>
+                <ul>
+                  <li ng-repeat="type in types" class="capitalized">
+                    - {{type.name}}
+                  </li>
+                </ul>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div class="paginate">
         <dir-pagination-controls></dir-pagination-controls>

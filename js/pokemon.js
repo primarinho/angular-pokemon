@@ -1,4 +1,4 @@
-var pokemonApp = angular.module('pokemonApp', ['angularUtils.directives.dirPagination', 'ui.bootstrap.modal'])
+var pokemonApp = angular.module('pokemonApp', ['angularUtils.directives.dirPagination'])
 .filter('splitResource', function() {
   return function(input) {
     return parseInt(
@@ -36,12 +36,10 @@ pokemonApp.controller("PokemonsCtrl", function($scope, $http) {
     var pokemon_id = resource_uri.replace("api/v1/pokemon/", "").replace("/", "");
     $http.get('http://pokeapi.co/api/v1/pokemon/'+pokemon_id).
     success(function(data, status, headers, config) {
-      console.log(
-        'Name: ' + data.name
-        ,' | Attack: ' + data.attack
-        ,' | Defense: ' + data.defense
-        ,' | Type: ' + data.types[0].name
-      );
+      $scope.info = data;
+      $scope.pokemon_id = pokemon_id;
+      $scope.types = data.types;
+      $('#info').modal('toggle');
     }).
     error(function(data, status, headers, config) {
       // show error
