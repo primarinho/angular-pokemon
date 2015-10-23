@@ -5,9 +5,12 @@
   <title>Gotta catch 'em all AngularJS! (pokeapi)</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="img/pokeball.png">
   <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="css/vendor/animate.css">
   <link rel="stylesheet" href="css/app.css">
   <script src="node_modules/angular/angular.js"></script>
+  <script src="node_modules/angular-ui-bootstrap/ui-bootstrap.js"></script>
   <script src="node_modules/angular-utils-pagination/dirPagination.js"></script>
   <script src="js/pokemon.js"></script>
 </head>
@@ -22,18 +25,37 @@
     </div>
 
     <div class="lead" ng-controller="PokemonsCtrl">
+      <div class="sk-circle" ng-show="loading">
+        <div class="sk-circle1 sk-child"></div>
+        <div class="sk-circle2 sk-child"></div>
+        <div class="sk-circle3 sk-child"></div>
+        <div class="sk-circle4 sk-child"></div>
+        <div class="sk-circle5 sk-child"></div>
+        <div class="sk-circle6 sk-child"></div>
+        <div class="sk-circle7 sk-child"></div>
+        <div class="sk-circle8 sk-child"></div>
+        <div class="sk-circle9 sk-child"></div>
+        <div class="sk-circle10 sk-child"></div>
+        <div class="sk-circle11 sk-child"></div>
+        <div class="sk-circle12 sk-child"></div>
+      </div>
       <table class="table table-striped">
-        <tr dir-paginate="pokemon in pokemons | filter:search | itemsPerPage: 5">
+        <tr dir-paginate="pokemon in pokemons | filter:search | orderBy:'resource_uri|splitResource' | itemsPerPage: 5">
           <td>
-            <img class="pokemon" src="http://pokeapi.co/media/img/{{pokemon.resource_uri|splitResource}}.png" onerror="this.src='img/pokeball.png';">
+            <span class="bgeffect">{{pokemon.resource_uri|pokemonNumber}}</span>
+          </td>
+          <td>
+            <div class="pokemon" ng-click="viewPokemon(pokemon.resource_uri)">
+              <img ng-src="http://pokeapi.co/media/img/{{pokemon.resource_uri|splitResource}}.png" onerror="this.src='img/pokeball.png';">
+            </div>
           </td>
           <td class="capitalized">
-            <span class="name">{{pokemon.name}}</span>
+            <span class="bgeffect">{{pokemon.name}}</span>
           </td>
         </tr>
       </table>
 
-      <div class="page">
+      <div class="paginate">
         <dir-pagination-controls></dir-pagination-controls>
       </div>
     </div>
