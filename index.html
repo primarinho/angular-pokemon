@@ -78,10 +78,14 @@
                 </div>
 
                 <div class="types">
-                  <strong>Types:</strong>
+                  <p>
+                    <strong>Types:</strong>
+                  </p>
                   <ul>
-                    <li ng-repeat="type in types" class="capitalized">
-                      - {{type.name}}
+                    <li ng-repeat="type in types">
+                      <p class="label label-{{type.name}}">
+                        <span class="capitalized">{{type.name}}</span>
+                      </p>
                     </li>
                   </ul>
                 </div>
