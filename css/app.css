@@ -78,6 +78,10 @@ td {
   font-size: 14px;
 }
 
+.loading_text {
+  text-align: center;
+}
+
 @media all and (max-width: 1024px) {
   td {
     font-size: 10px;

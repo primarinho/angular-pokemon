@@ -7,11 +7,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="shortcut icon" href="img/pokeball.png">
   <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
-  <link rel="stylesheet" href="css/vendor/animate.css">
+  <link rel="stylesheet" href="node_modules/animate.css/animate.css">
   <link rel="stylesheet" href="css/app.css">
   <script src="node_modules/angular/angular.js"></script>
   <script src="node_modules/angular-utils-pagination/dirPagination.js"></script>
-  <script src="js/vendor/jquery-1.11.3.js"></script>
+  <script src="node_modules/jquery/dist/jquery.js"></script>
   <script src="node_modules/bootstrap/js/modal.js"></script>
   <script src="js/pokemon.js"></script>
 </head>
@@ -55,34 +55,37 @@
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
-              <h4 class="modal-title"><strong>Pokémon:</strong> {{info.name}}</h4>
+              <h4 class="modal-title"><strong>Pokémon:</strong> <span ng-show="pokemonInfo">{{info.name}}</span></h4>
             </div>
             <div class="modal-body">
-              <img ng-src="http://pokeapi.co/media/img/{{pokemon_id}}.png" onerror="this.src='img/pokeball.png';" class="info_pic">
+              <div class="loading_text" ng-show="loadingModal">Loading...</div>
 
-              <h5 class="progress-label">Attack:</h5>
-              <div class="progress">
-                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{info.attack}}" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em; width: {{info.attack}}%">
-                {{info.attack}}
+              <div ng-show="pokemonInfo">
+                <img ng-src="http://pokeapi.co/media/img/{{pokemon_id}}.png" onerror="this.src='img/pokeball.png';" class="info_pic">
+
+                <h5 class="progress-label">Attack:</h5>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{info.attack}}" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em; width: {{info.attack}}%">
+                    {{info.attack}}
+                  </div>
+                </div>
+
+                <h5 class="progress-label">Defense:</h5>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{info.defense}}" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em; width: {{info.defense}}%">
+                    {{info.defense}}
+                  </div>
+                </div>
+
+                <div class="types">
+                  <strong>Types:</strong>
+                  <ul>
+                    <li ng-repeat="type in types" class="capitalized">
+                      - {{type.name}}
+                    </li>
+                  </ul>
                 </div>
               </div>
-
-              <h5 class="progress-label">Defense:</h5>
-              <div class="progress">
-                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{info.defense}}" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em; width: {{info.defense}}%">
-                  {{info.defense}}
-                </div>
-              </div>
-
-              <div class="types">
-                <strong>Types:</strong>
-                <ul>
-                  <li ng-repeat="type in types" class="capitalized">
-                    - {{type.name}}
-                  </li>
-                </ul>
-              </div>
-
             </div>
           </div>
         </div>

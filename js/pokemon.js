@@ -33,13 +33,13 @@ pokemonApp.controller("PokemonsCtrl", function($scope, $http) {
   });
 
   $scope.viewPokemon = function(resource_uri){
+    $scope.pokemonInfo = false; $scope.loadingModal = true;
+    $('#info').modal('toggle');
     var pokemon_id = resource_uri.replace("api/v1/pokemon/", "").replace("/", "");
     $http.get('http://pokeapi.co/api/v1/pokemon/'+pokemon_id).
     success(function(data, status, headers, config) {
-      $scope.info = data;
-      $scope.pokemon_id = pokemon_id;
-      $scope.types = data.types;
-      $('#info').modal('toggle');
+      $scope.info = data; $scope.pokemon_id = pokemon_id; $scope.types = data.types;
+      $scope.pokemonInfo = true; $scope.loadingModal = false;
     }).
     error(function(data, status, headers, config) {
       // show error
